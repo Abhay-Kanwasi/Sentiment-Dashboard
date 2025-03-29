@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+import styled from "styled-components";
 import { useDropzone } from 'react-dropzone';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, 
          BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
@@ -45,6 +46,100 @@ const App = () => {
   const [sentimentFilter, setSentimentFilter] = useState<string>('all');
   const [showStatsCards, setShowStatsCards] = useState(true);
 
+  const ResponsiveGrid = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border-bottom: 1px solid ${COLORS.border};
+
+    @media (min-width: 768px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  `;
+
+  const ContainerA = styled.div`
+    padding: 1.5rem;
+  `;
+
+  const ResponsiveFlex = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  `;
+
+  const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      width: auto;
+    }
+  `;
+
+  const SearchContainer = styled.div`
+    position: relative;
+    flex-grow: 1;
+
+    @media (min-width: 768px) {
+      width: 240px;
+    }
+  `;
+
+  const FilterContainer = styled.div`
+    position: relative;
+
+    @media (min-width: 768px) {
+      width: 180px;
+    }
+  `;
+
+  const StyledInput = styled.input`
+    width: 100%;
+    padding: 0.625rem 0.75rem 0.625rem 2.25rem;
+    border: 1px solid ${COLORS.border};
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+  `;
+
+  const StyledSelect = styled.select`
+    width: 100%;
+    padding: 0.625rem 0.75rem 0.625rem 2.25rem;
+    border: 1px solid ${COLORS.border};
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+  `;
+
+  const DownloadButton = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    background-color: ${COLORS.primary};
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  `;
   const onDrop = async (acceptedFiles: File[]) => {
     setError(null);
     
@@ -284,16 +379,7 @@ const App = () => {
             </div>
 
             {/* Charts Section */}
-            <div style={{ 
-              display: 'grid', 
-              gridTemplateColumns: '1fr', 
-              gap: '1.5rem',
-              padding: '1.5rem',
-              borderBottom: `1px solid ${COLORS.border}`,
-              '@media (min-width: 768px)': {
-                gridTemplateColumns: '1fr 1fr',
-              }
-            }}>
+            <ResponsiveGrid>
               {/* Sentiment Distribution Pie Chart */}
               <div style={{ height: '300px' }}>
                 <h3 style={{ fontSize: '1rem', fontWeight: 500, marginTop: 0, marginBottom: '1rem' }}>Sentiment Distribution</h3>
@@ -377,128 +463,61 @@ const App = () => {
                   </BarChart>
                 </ResponsiveContainer>
               </div>
-            </div>
+            </ResponsiveGrid>
 
             {/* Reviews Table Section */}
-            <div style={{ padding: '1.5rem' }}>
-              <div style={{ 
-                display: 'flex', 
-                flexDirection: 'column',
-                gap: '1rem',
-                marginBottom: '1.5rem',
-                '@media (min-width: 768px)': {
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }
-              }}>
+            <Container>
+              <ResponsiveFlex>
                 <h3 style={{ fontSize: '1rem', fontWeight: 500, margin: 0 }}>Review Details ({filteredReviews.length} reviews)</h3>
                 
-                <div style={{ 
-                  display: 'flex', 
-                  flexDirection: 'column',
-                  gap: '0.75rem',
-                  width: '100%',
-                  '@media (min-width: 768px)': {
-                    flexDirection: 'row',
-                    width: 'auto',
-                  }
-                }}>
-                  <div style={{ 
-                    position: 'relative',
-                    flexGrow: 1,
-                    '@media (min-width: 768px)': {
-                      width: '240px',
-                    }
-                  }}>
-                    <Search 
-                      size={16} 
-                      style={{ 
-                        position: 'absolute', 
-                        left: '0.75rem', 
-                        top: '50%', 
-                        transform: 'translateY(-50%)',
-                        color: COLORS.lightText 
+                <ContainerA>
+                  <SearchContainer>
+                    <Search
+                      size={16}
+                      style={{
+                        position: "absolute",
+                        left: "0.75rem",
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        color: COLORS.lightText,
                       }}
                     />
-                    <input
+                    <StyledInput
                       type="text"
                       placeholder="Search reviews..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                  </SearchContainer>
+
+                  <FilterContainer>
+                    <Filter
+                      size={16}
                       style={{
-                        width: '100%',
-                        padding: '0.625rem 0.75rem 0.625rem 2.25rem',
-                        border: `1px solid ${COLORS.border}`,
-                        borderRadius: '0.375rem',
-                        fontSize: '0.875rem',
+                        position: "absolute",
+                        left: "0.75rem",
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        color: COLORS.lightText,
                       }}
                     />
-                  </div>
-                  
-                  <div style={{ 
-                    position: 'relative',
-                    '@media (min-width: 768px)': {
-                      width: '180px',
-                    }
-                  }}>
-                    <Filter 
-                      size={16} 
-                      style={{ 
-                        position: 'absolute', 
-                        left: '0.75rem', 
-                        top: '50%', 
-                        transform: 'translateY(-50%)',
-                        color: COLORS.lightText 
-                      }}
-                    />
-                    <select
+                    <StyledSelect
                       value={sentimentFilter}
                       onChange={(e) => setSentimentFilter(e.target.value)}
-                      style={{
-                        width: '100%',
-                        padding: '0.625rem 0.75rem 0.625rem 2.25rem',
-                        border: `1px solid ${COLORS.border}`,
-                        borderRadius: '0.375rem',
-                        fontSize: '0.875rem',
-                        WebkitAppearance: 'none',
-                        MozAppearance: 'none',
-                        appearance: 'none',
-                        backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke=\'%236B7280\'%3E%3Cpath stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M19 9l-7 7-7-7\'%3E%3C/path%3E%3C/svg%3E")',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundPosition: 'right 0.75rem center',
-                        backgroundSize: '1rem',
-                      }}
                     >
                       <option value="all">All Sentiments</option>
                       <option value="positive">Positive</option>
                       <option value="negative">Negative</option>
-                    </select>
-                  </div>
-                  
-                  <button
-                    onClick={handleDownloadCSV}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '0.5rem',
-                      padding: '0.625rem 1.25rem',
-                      backgroundColor: COLORS.primary,
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '0.375rem',
-                      fontSize: '0.875rem',
-                      fontWeight: 500,
-                      cursor: 'pointer',
-                      transition: 'background-color 0.2s',
-                    }}
-                  >
+                    </StyledSelect>
+                  </FilterContainer>
+
+                  <DownloadButton onClick={handleDownloadCSV}>
                     <Download size={16} />
                     Download CSV
-                  </button>
-                </div>
-              </div>
+                  </DownloadButton>
+                </ContainerA>;
+              </ResponsiveFlex>
+            </Container>
               
               <div style={{ overflowX: 'auto' }}>
                 <table style={{ 
@@ -596,7 +615,6 @@ const App = () => {
                   Showing {filteredReviews.length} of {results.reviews.length} reviews
                 </div>
               )}
-            </div>
           </section>
         )}
       </main>
