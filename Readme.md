@@ -1,10 +1,10 @@
 # Sentiment Dashboard
 
-A web application for analyzing product reviews using sentiment analysis.
+A web-based application for analyzing the sentiment of product reviews using advanced NLP models.
 
 ## Description
 
-This project provides a web-based dashboard for analyzing product reviews through sentiment analysis. The application consists of two main components:
+This project provides a comprehensive solution for sentiment analysis, combining a FastAPI backend with a React frontend. The application allows users to upload CSV files containing product reviews, analyze the sentiment using a pre-trained DistilBERT model, and visualize the results through an interactive dashboard. The application consists of two main components:
 
 1. **Backend API**: Built using FastAPI, providing endpoints for sentiment analysis of text data.
 2. **Frontend Dashboard**: A user-friendly interface (built with React or similar framework) that visualizes the sentiment analysis results.
