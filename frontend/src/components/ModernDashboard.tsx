@@ -468,55 +468,59 @@ const App = () => {
             {/* Reviews Table Section */}
             <Container>
               <ResponsiveFlex>
-                <h3 style={{ fontSize: '1rem', fontWeight: 500, margin: 0 }}>Review Details ({filteredReviews.length} reviews)</h3>
-                
-                <ContainerA>
-                  <SearchContainer>
-                    <Search
-                      size={16}
-                      style={{
-                        position: "absolute",
-                        left: "0.75rem",
-                        top: "50%",
-                        transform: "translateY(-50%)",
-                        color: COLORS.lightText,
-                      }}
-                    />
-                    <StyledInput
-                      type="text"
-                      placeholder="Search reviews..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                  </SearchContainer>
+                <h3 style={{ paddingLeft: '30px', fontSize: '1rem', fontWeight: 500, margin: 0 }}>Review Details ({filteredReviews.length} reviews)</h3>
+                  <ContainerA style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <SearchContainer style={{ position: 'relative', flex: '0 1 200px' }}>
+                      <Search
+                        size={16}
+                        style={{
+                          position: "absolute",
+                          left: "0.75rem",
+                          top: "50%",
+                          transform: "translateY(-50%)",
+                          color: COLORS.lightText,
+                        }}
+                      />
+                      <StyledInput
+                        type="text"
+                        placeholder="Search reviews..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        style={{ paddingLeft: '2rem', width: '100%' }}
+                      />
+                    </SearchContainer>
 
-                  <FilterContainer>
-                    <Filter
-                      size={16}
-                      style={{
-                        position: "absolute",
-                        left: "0.75rem",
-                        top: "50%",
-                        transform: "translateY(-50%)",
-                        color: COLORS.lightText,
-                      }}
-                    />
-                    <StyledSelect
-                      value={sentimentFilter}
-                      onChange={(e) => setSentimentFilter(e.target.value)}
+                    <FilterContainer style={{ position: 'relative', flex: '0 1 160px' }}>
+                      <Filter
+                        size={16}
+                        style={{
+                          position: "absolute",
+                          left: "0.75rem",
+                          top: "50%",
+                          transform: "translateY(-50%)",
+                          color: COLORS.lightText,
+                        }}
+                      />
+                      <StyledSelect
+                        value={sentimentFilter}
+                        onChange={(e) => setSentimentFilter(e.target.value)}
+                        style={{ paddingLeft: '2rem', width: '100%' }}
+                      >
+                        <option value="all">All Sentiments</option>
+                        <option value="positive">Positive</option>
+                        <option value="negative">Negative</option>
+                      </StyledSelect>
+                    </FilterContainer>
+
+                    <DownloadButton 
+                      onClick={handleDownloadCSV}
+                      style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}
                     >
-                      <option value="all">All Sentiments</option>
-                      <option value="positive">Positive</option>
-                      <option value="negative">Negative</option>
-                    </StyledSelect>
-                  </FilterContainer>
-
-                  <DownloadButton onClick={handleDownloadCSV}>
-                    <Download size={16} />
-                    Download CSV
-                  </DownloadButton>
-                </ContainerA>;
-              </ResponsiveFlex>
+                      <Download size={16} />
+                      Download CSV
+                    </DownloadButton>
+                  </ContainerA>
+                </ResponsiveFlex>
             </Container>
               
               <div style={{ overflowX: 'auto' }}>
