@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, 
          BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
-import { RotatingLines } from 'react-loader-spinner';
+import { PuffLoader } from "react-spinners";
 import { Download, FileText, Search, Filter, ChevronDown, AlertCircle } from 'lucide-react';
 
 // Type definitions
@@ -166,12 +166,9 @@ const App = () => {
 
             {isLoading ? (
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <RotatingLines
-                  strokeColor={COLORS.primary}
-                  strokeWidth="5"
-                  animationDuration="0.75"
-                  width="48"
-                  visible={true}
+                <PuffLoader
+                  color={COLORS.primary} 
+                  size={48}
                 />
                 <p style={{ marginTop: '1rem', color: COLORS.primary, fontWeight: 500 }}>
                   Analyzing your reviews...
