@@ -5,8 +5,8 @@ from typing import Dict, Any
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from models import SentimentAnalyzer
-from utils import validate_csv
+from .models import SentimentAnalyzer
+from .utils import validate_csv
 
 app = FastAPI(title="Sentiment Analysis API")
 
