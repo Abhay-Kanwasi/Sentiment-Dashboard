@@ -3,8 +3,8 @@ from typing import Optional
 
 def validate_csv(df: pd.DataFrame) -> Optional[str]:
     """
-    Validate that the CSV file has the required structure.
-    Returns an error message if validation fails, None otherwise.
+        Validate that the CSV file has the required structure.
+        Returns an error message if validation fails, None otherwise.
     """
     # Check if 'review' column exists
     if 'review' not in df.columns:

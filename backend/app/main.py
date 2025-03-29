@@ -1,7 +1,6 @@
 import io
-import asyncio
 import pandas as pd
-from typing import List, Dict, Any
+from typing import Dict, Any
 
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -30,9 +29,9 @@ async def check_status():
 @app.post("/analyze")
 async def analyze_reviews(file: UploadFile = File(...)) -> Dict[str, Any]:
     """
-    Analyze sentiment in product reviews from a CSV file.
-    
-    The CSV must have a 'review' column containing the text to analyze.
+        Analyze sentiment in product reviews from a CSV file.
+        
+        The CSV must have a 'review' column containing the text to analyze.
     """
     # Validate file extension
     if not file.filename.endswith('.csv'):
@@ -87,7 +86,6 @@ async def analyze_reviews(file: UploadFile = File(...)) -> Dict[str, Any]:
         return response
         
     except Exception as e:
-        print(e)
         raise HTTPException(status_code=500, detail=f"Error processing CSV: {str(e)}")
 
 if __name__ == "__main__":
